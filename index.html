@@ -11,42 +11,21 @@
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            color: #ffffff;
+            background: linear-gradient(145deg, #f8fafc 0%, #eef2f6 100%);
+            color: #1e293b;
             overflow-x: hidden;
-            background-image: url('https://sfw.bar/qisheTV/photo_2025-08-16_21-17-15.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            background-repeat: no-repeat;
-        }
-        .glass-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
-            z-index: -1;
         }
         .app-wrapper {
             width: 100%;
             max-width: 480px;
             position: relative;
-            padding-bottom: 20px;
+            padding: 20px 16px 20px;
         }
         .navbar {
-            position: sticky;
-            top: 0;
-            padding: 16px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            z-index: 10;
+            padding-bottom: 20px;
         }
         .brand {
             display: flex;
@@ -54,128 +33,117 @@
             gap: 10px;
         }
         .brand .logo {
-            width: 40px;
-            height: 40px;
+            font-size: 32px;
+            background: white;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid rgba(255,255,255,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
         }
         .brand .text {
             display: flex;
             flex-direction: column;
         }
-        .brand .text .name { font-weight: 700; font-size: 18px; }
-        .brand .text .id { font-size: 12px; color: #e2e8f0; }
+        .brand .text .name { font-weight: 700; font-size: 18px; color: #0f172a; }
+        .brand .text .id { font-size: 13px; color: #64748b; }
         .hero {
             text-align: center;
-            padding: 40px 20px 20px;
-            position: relative;
+            padding: 20px 0 24px;
         }
         .hero .mascot {
-            width: 160px;
-            height: 160px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin: 0 auto 24px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            font-size: 80px;
             display: block;
-            border: 3px solid rgba(255,255,255,0.2);
+            margin: 0 auto 16px;
+            line-height: 1;
         }
         .hero .big-title {
-            font-size: 28px;
-            font-weight: 800;
-            letter-spacing: 1px;
-            color: #fff;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            font-size: 26px;
+            font-weight: 700;
+            color: #0f172a;
         }
         .hero .sub {
-            color: #e2e8f0;
-            font-size: 15px;
-            margin-top: 8px;
-            line-height: 1.6;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            color: #64748b;
+            font-size: 14px;
+            margin-top: 6px;
         }
         .grid-2x2 {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            padding: 20px;
+            gap: 12px;
+            margin-bottom: 20px;
         }
         .card-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 24px;
-            padding: 24px 16px;
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 24px 12px;
             text-align: center;
             cursor: pointer;
             transition: all 0.2s;
-            color: #fff;
-            backdrop-filter: blur(4px);
-            /* 点击不用跳转 */
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            border: none;
         }
-        .card-btn:active { transform: scale(0.96); background: rgba(255,255,255,0.2); }
-        .card-btn .icon { font-size: 28px; display: block; margin-bottom: 8px; }
-        .card-btn .label { font-weight: 600; font-size: 15px; }
+        .card-btn:active { transform: scale(0.96); background: #f8fafc; }
+        .card-btn .icon { font-size: 28px; display: block; margin-bottom: 6px; }
+        .card-btn .label { font-weight: 600; font-size: 15px; color: #1e293b; }
         .list-drawer {
             background: #ffffff;
-            border-radius: 24px 24px 0 0;
-            padding: 24px 20px;
-            margin-top: 20px;
-            color: #1e293b;
+            border-radius: 24px;
+            padding: 20px;
             display: none;
-            box-shadow: 0 -4px 30px rgba(0,0,0,0.2);
-            max-height: 60vh;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.04);
+            max-height: 50vh;
             overflow-y: auto;
         }
         .list-drawer.open { display: block; }
-        .list-drawer .drawer-header {
+        .drawer-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 16px;
-            border-bottom: 1px solid #e2e8f0;
+            margin-bottom: 12px;
+            border-bottom: 1px solid #f1f5f9;
             padding-bottom: 12px;
-            position: sticky;
-            top: 0;
-            background: #fff;
-            z-index: 5;
         }
-        .list-drawer .drawer-header h3 { font-size: 18px; }
-        .list-drawer .close-drawer {
-            background: none;
-            border: none;
+        .drawer-header h3 { font-size: 17px; }
+        .drawer-header .close {
             font-size: 20px;
             cursor: pointer;
-            color: #64748b;
+            color: #94a3b8;
+            background: none;
+            border: none;
         }
         .list-item {
             display: flex;
             justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px solid #f1f5f9;
+            padding: 10px 0;
+            border-bottom: 1px solid #f8fafc;
         }
         .list-item:last-child { border-bottom: none; }
-        .list-item .name { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 500; }
+        .list-item .name { display: flex; align-items: center; gap: 6px; font-size: 15px; }
         .list-item .price { font-weight: 600; color: #b91c1c; }
         .footer {
-            padding: 20px;
+            margin-top: 20px;
+            padding: 16px;
+            background: #ffffff;
+            border-radius: 16px;
             text-align: center;
-            color: #e2e8f0;
             font-size: 13px;
-            line-height: 1.8;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            color: #64748b;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            line-height: 1.6;
         }
-        .footer .highlight { color: #fbbf24; font-weight: 500; }
+        .footer .highlight { color: #2563eb; font-weight: 500; }
     </style>
 </head>
 <body>
 
-    <div class="glass-overlay"></div>
-
     <div class="app-wrapper">
+        <!-- 顶部：机器人🤖 Emoji 头像 -->
         <div class="navbar">
             <div class="brand">
-                <img class="logo" src="https://sfw.bar/qisheTV/photo_2025-08-16_21-17-15.jpg" alt="logo">
+                <div class="logo">🤖</div>
                 <div class="text">
                     <span class="name">易得</span>
                     <span class="id">@Cctv365bot</span>
@@ -183,35 +151,38 @@
             </div>
         </div>
 
+        <!-- 英雄区：大号熊猫🐼 Emoji 代替图片 -->
         <div class="hero">
-            <img class="mascot" src="https://sfw.bar/qisheTV/photo_2025-08-16_21-17-15.jpg" alt="熊猫">
+            <span class="mascot">🐼</span>
             <div class="big-title">生活所需 一应俱全</div>
             <div class="sub">有什么需求，交给我就好</div>
         </div>
 
+        <!-- 分类 -->
         <div class="grid-2x2">
-            <div class="card-btn" onclick="openDrawer('plane')">
+            <button class="card-btn" onclick="openDrawer('plane')">
                 <span class="icon">✈️</span>
                 <div class="label">飞机号</div>
-            </div>
-            <div class="card-btn" onclick="openDrawer('social')">
+            </button>
+            <button class="card-btn" onclick="openDrawer('social')">
                 <span class="icon">📧</span>
                 <div class="label">社交账号</div>
-            </div>
-            <div class="card-btn" onclick="openDrawer('card')">
+            </button>
+            <button class="card-btn" onclick="openDrawer('card')">
                 <span class="icon">📞</span>
                 <div class="label">实体卡</div>
-            </div>
-            <div class="card-btn" onclick="openDrawer('check')">
+            </button>
+            <button class="card-btn" onclick="openDrawer('check')">
                 <span class="icon">🔍</span>
                 <div class="label">查档服务</div>
-            </div>
+            </button>
         </div>
 
+        <!-- 商品列表 -->
         <div id="drawer" class="list-drawer">
             <div class="drawer-header">
                 <h3 id="drawerTitle">商品列表</h3>
-                <button class="close-drawer" onclick="closeDrawer()">✕</button>
+                <button class="close" onclick="closeDrawer()">✕</button>
             </div>
             <div id="drawerContent"></div>
         </div>
@@ -223,28 +194,23 @@
     </div>
 
     <script>
-        // 所有商品数据完整保留
         const allData = {
             plane: [
                 { n: '🇺🇸 美国 (+1)', p: '¥50' }, { n: '🇨🇴 哥伦比亚 (+57)', p: '¥30' },
                 { n: '🇵🇰 巴基斯坦 (+92)', p: '¥30' }, { n: '🇧🇩 孟加拉 (+880)', p: '¥35' },
-                { n: '🇺🇿 乌兹别克斯坦 (+998)', p: '¥35' }, { n: '🇦🇷 阿根廷 (+54)', p: '¥38' },
-                { n: '🇨🇱 智利 (+56)', p: '¥38' }, { n: '🇻🇳 越南 (+84)', p: '¥38' },
-                { n: '🇮🇱 以色列 (+972)', p: '¥38' }, { n: '🇹🇿 坦桑尼亚 (+255)', p: '¥38' }
+                { n: '🇺🇿 乌兹别克斯坦 (+998)', p: '¥35' }, { n: '🇦🇷 阿根廷 (+54)', p: '¥38' }
             ],
             social: [
                 { n: 'Google Gmail 老号', p: '¥68' }, { n: 'Facebook 老号', p: '¥35' },
-                { n: 'Twitter 推特老号', p: '¥50' }, { n: 'Instagram 精品号', p: '¥88' },
-                { n: 'Discord 老号', p: '¥66' }, { n: 'TikTok 各国账号', p: '¥20' }
+                { n: 'Twitter 推特老号', p: '¥50' }, { n: 'Instagram 精品号', p: '¥88' }
             ],
             card: [
                 { n: '🇵🇭 菲律宾卡', p: '¥27起' }, { n: '🇹🇭 泰国卡', p: '¥143起' },
-                { n: '🇭🇰 香港卡', p: '¥55起' }, { n: '🇲🇾 马来卡', p: '¥43起' },
-                { n: '🇬🇧 英国卡', p: '¥56起' }, { n: '🇮🇩 印尼卡', p: '¥53起' }
+                { n: '🇭🇰 香港卡', p: '¥55起' }, { n: '🇲🇾 马来卡', p: '¥43起' }
             ],
             check: [
                 { n: '🔍 个人开房记录', p: '120U' }, { n: '📍 手机号查轨迹', p: '60U' },
-                { n: '🚗 车辆行驶轨迹', p: '55U' }, { n: '📞 手机通话记录', p: '78U' }
+                { n: '🚗 车辆行驶轨迹', p: '55U' }
             ]
         };
 
