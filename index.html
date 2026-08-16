@@ -8,6 +8,203 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: #f4f7fc;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 16px 30px;
+            color: #1e293b;
+        }
+        .container {
+            width: 100%;
+            max-width: 480px;
+        }
+        /* 顶部固定卡片 */
+        .top-card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 20px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .top-card .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 8px;
+            border: 3px solid white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .top-card .title {
+            font-size: 22px;
+            font-weight: 700;
+        }
+        .top-card .bot-id {
+            font-size: 14px;
+            color: #475569;
+            background: #f1f5f9;
+            padding: 4px 16px;
+            border-radius: 16px;
+            margin-top: 4px;
+            display: inline-block;
+        }
+        /* 四个分类按钮（2x2） */
+        .category-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .cat-btn {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 24px 12px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            cursor: pointer;
+            border: none;
+            width: 100%;
+            transition: 0.15s;
+        }
+        .cat-btn:active { background: #f8fafc; }
+        .cat-btn .icon { display: block; font-size: 32px; margin-bottom: 6px; }
+        /* 切换商品列表（翻页切换区） */
+        .list-area {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 20px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+            margin-bottom: 20px;
+            min-height: 240px;
+            position: relative;
+        }
+        .list-page {
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+        }
+        .list-page.active { display: flex; }
+        .list-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .list-item:last-child { border-bottom: none; }
+        .list-item .name { font-size: 15px; display: flex; align-items: center; gap: 6px; }
+        .list-item .price { font-weight: 600; color: #b91c1c; }
+        /* 底部售后 */
+        .footer {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 16px 20px;
+            text-align: center;
+            font-size: 13px;
+            color: #475569;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            line-height: 1.6;
+        }
+        .footer .highlight { color: #2563eb; font-weight: 500; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- 顶部：机器人头像 + 易得 + 机器人ID -->
+        <div class="top-card">
+            <img class="avatar" src="https://sfw.bar/qisheTV/photo_2025-08-16_21-17-15.jpg" alt="机器人头像">
+            <div class="title">易得</div>
+            <div class="bot-id">@Cctv365bot</div>
+        </div>
+
+        <!-- 2x2 分类按钮 -->
+        <div class="category-grid">
+            <button class="cat-btn" onclick="switchList('plane')">
+                <span class="icon">✈️</span> 飞机号
+            </button>
+            <button class="cat-btn" onclick="switchList('social')">
+                <span class="icon">📧</span> 社交账号
+            </button>
+            <button class="cat-btn" onclick="switchList('card')">
+                <span class="icon">📞</span> 实体卡
+            </button>
+            <button class="cat-btn" onclick="switchList('check')">
+                <span class="icon">🔍</span> 查档服务
+            </button>
+        </div>
+
+        <!-- 下方翻页切换区 -->
+        <div class="list-area">
+
+            <!-- 列表1：飞机号（默认显示） -->
+            <div id="listPlane" class="list-page active">
+                <div class="list-item"><span class="name">🇺🇸 美国 (+1)</span><span class="price">¥50</span></div>
+                <div class="list-item"><span class="name">🇨🇴 哥伦比亚 (+57)</span><span class="price">¥30</span></div>
+                <div class="list-item"><span class="name">🇵🇰 巴基斯坦 (+92)</span><span class="price">¥30</span></div>
+                <div class="list-item"><span class="name">🇧🇩 孟加拉 (+880)</span><span class="price">¥35</span></div>
+                <div class="list-item"><span class="name">🇺🇿 乌兹别克斯坦 (+998)</span><span class="price">¥35</span></div>
+                <div class="list-item"><span class="name">🇦🇷 阿根廷 (+54)</span><span class="price">¥38</span></div>
+            </div>
+
+            <!-- 列表2：社交账号 -->
+            <div id="listSocial" class="list-page">
+                <div class="list-item"><span class="name">Google Gmail 老号</span><span class="price">¥68</span></div>
+                <div class="list-item"><span class="name">Facebook 老号</span><span class="price">¥35</span></div>
+                <div class="list-item"><span class="name">Twitter 老号</span><span class="price">¥50</span></div>
+                <div class="list-item"><span class="name">Instagram 精品号</span><span class="price">¥88</span></div>
+            </div>
+
+            <!-- 列表3：实体卡 -->
+            <div id="listCard" class="list-page">
+                <div class="list-item"><span class="name">📞 香港卡全系列</span><span class="price">询价</span></div>
+                <div class="list-item"><span class="name">🇵🇭 菲律宾卡</span><span class="price">¥27起</span></div>
+            </div>
+
+            <!-- 列表4：查档服务 -->
+            <div id="listCheck" class="list-page">
+                <div class="list-item"><span class="name">🔍 开房记录</span><span class="price">120U</span></div>
+                <div class="list-item"><span class="name">📍 手机号查轨迹</span><span class="price">60U</span></div>
+                <div class="list-item"><span class="name">✈️ 个人出入境</span><span class="price">52U</span></div>
+            </div>
+
+        </div>
+
+        <!-- 底部售后 -->
+        <div class="footer">
+            我们所售商品均为正常可用状态。<br>
+            售前售后全程跟进，购物无忧。<br>
+            <span class="highlight">售后联系 @qishe77</span>
+        </div>
+
+    </div>
+
+    <script>
+        function switchList(id) {
+            // 隐藏所有列表
+            document.querySelectorAll('.list-page').forEach(el => el.classList.remove('active'));
+            // 显示对应的列表
+            const target = document.getElementById('list' + id.charAt(0).toUpperCase() + id.slice(1));
+            if (target) target.classList.add('active');
+        }
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>易得 · 商品总览</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background: #f0f4fa;
             min-height: 100vh;
             display: flex;
