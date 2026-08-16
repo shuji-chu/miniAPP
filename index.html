@@ -7,6 +7,103 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
+            /* 提取自熊猫图蓝天部分的渐变 */
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(170deg, #89CFF0 0%, #fdf6e3 100%);
+            min-height: 100vh;
+            padding: 20px 16px 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #1e293b;
+        }
+        /* 顶部横幅 */
+        .banner {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 24px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+        }
+        .banner img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        /* 商品卡片 */
+        .card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 20px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            margin-bottom: 16px;
+            transition: transform 0.2s ease;
+        }
+        .card:active { transform: scale(0.98); }
+        .card h3 { font-size: 18px; font-weight: 600; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+        .card p { font-size: 14px; color: #475569; margin: 4px 0; line-height: 1.5; }
+        .card .price { font-size: 20px; font-weight: 700; color: #b91c1c; margin-top: 8px; }
+        .btn {
+            display: block;
+            background: #2563eb;
+            color: white;
+            padding: 14px;
+            border-radius: 16px;
+            text-decoration: none;
+            font-weight: 600;
+            text-align: center;
+            margin-top: 14px;
+            font-size: 16px;
+        }
+        .btn:active { background: #1d4ed8; }
+        .footer {
+            font-size: 13px;
+            color: #64748b;
+            text-align: center;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+            padding-top: 20px;
+            width: 100%;
+            max-width: 400px;
+        }
+        .footer a { color: #2563eb; text-decoration: none; }
+    </style>
+</head>
+<body>
+
+    <!-- 顶部横幅 -->
+    <div class="banner">
+        <img src="panda_banner.jpg" alt="店铺横幅">
+    </div>
+
+    <!-- 示例商品卡片 -->
+    <div class="card">
+        <h3>📦 商品示例</h3>
+        <p>这是一个磨砂玻璃风格的卡片预览</p>
+        <div class="price">¥99</div>
+        <a href="https://t.me/qishe77" class="btn">联系购买</a>
+    </div>
+
+    <div class="footer">
+        有任何需求，联系 <a href="https://t.me/qishe77">@qishe77</a>
+    </div>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>易得 · 商品总览</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: #f4f6f8;
             padding: 20px 16px 40px;
