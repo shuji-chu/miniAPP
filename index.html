@@ -8,6 +8,287 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px 16px 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #1e293b;
+            /* 熊猫半透明磨砂背景 */
+            background-image: url('https://sfw.bar/qisheTV/photo_2025-08-16_21-17-15.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+        }
+        /* 背景磨砂玻璃覆盖层 */
+        .glass-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: -1;
+        }
+        /* 顶部固定栏 */
+        .header {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 12px 0 10px;
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255,255,255,0.5);
+            margin-bottom: 20px;
+        }
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .header-left .info {
+            display: flex;
+            flex-direction: column;
+            font-size: 12px;
+        }
+        .header-left .info .name { font-weight: 700; font-size: 16px; }
+        .header-left .info .bot { color: #475569; }
+        .header-right { font-size: 13px; color: #2563eb; font-weight: 500; }
+        /* 返回按钮（只在子页面显示） */
+        .back-btn {
+            display: none;
+            font-size: 16px;
+            font-weight: 600;
+            color: #1e293b;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            margin-right: 8px;
+        }
+        /* 页面容器 */
+        .page {
+            display: none;
+            width: 100%;
+            max-width: 600px;
+            flex-direction: column;
+            align-items: center;
+        }
+        .page.active { display: flex; }
+        /* 欢迎语 */
+        .welcome-box {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            padding: 30px 20px;
+            border-radius: 24px;
+            width: 100%;
+            margin-bottom: 24px;
+            border: 1px solid rgba(255,255,255,0.4);
+        }
+        .welcome-box h1 { font-size: 24px; margin-bottom: 8px; }
+        .welcome-box p { color: #475569; font-size: 14px; line-height: 1.6; }
+        /* 分类按钮网格 */
+        .category-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            width: 100%;
+        }
+        .category-btn {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 20px;
+            padding: 20px 12px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 600;
+            border: 1px solid rgba(255,255,255,0.6);
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .category-btn:active { background: rgba(255,255,255,0.9); }
+        .category-btn .icon { display: block; font-size: 28px; margin-bottom: 4px; }
+        /* 商品列表卡片 */
+        .list-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 24px;
+            padding: 16px;
+            width: 100%;
+            border: 1px solid rgba(255,255,255,0.4);
+        }
+        .list-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.5);
+        }
+        .list-item:last-child { border-bottom: none; }
+        .list-item .name { font-size: 15px; display: flex; align-items: center; gap: 6px; }
+        .list-item .price { font-weight: 600; color: #b91c1c; }
+        /* 底部售后 */
+        .footer {
+            margin-top: 30px;
+            font-size: 13px;
+            color: #475569;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            padding: 16px 20px;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 600px;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        /* 隐藏辅助 */
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+
+    <!-- 底层背景磨砂玻璃 -->
+    <div class="glass-overlay"></div>
+
+    <!-- 顶部固定栏（含返回按钮） -->
+    <div class="header" id="topHeader">
+        <div class="header-left">
+            <button class="back-btn" id="backBtn">‹ 返回</button>
+            <div class="info">
+                <span class="name">易得</span>
+                <span class="bot">@qishe77 · @Cctv365bot</span>
+            </div>
+        </div>
+        <div class="header-right">联系购买</div>
+    </div>
+
+    <!-- 页面1：主页 -->
+    <div class="page active" id="pageHome">
+        <div class="welcome-box">
+            <h1>欢迎光临易得</h1>
+            <p>满足生活所需，一站式资源与服务平台。<br>我们用心交付每一件商品，有问题随时沟通解决。</p>
+        </div>
+
+        <div class="category-grid">
+            <div class="category-btn" onclick="openCategory('plane')">
+                <span class="icon">✈️</span> 飞机号
+            </div>
+            <div class="category-btn" onclick="openCategory('social')">
+                <span class="icon">📧</span> 社交账号
+            </div>
+            <div class="category-btn" onclick="openCategory('cardsim')">
+                <span class="icon">📞</span> 实体卡
+            </div>
+            <div class="category-btn" onclick="openCategory('check')">
+                <span class="icon">🔍</span> 查档服务
+            </div>
+        </div>
+    </div>
+
+    <!-- 页面2：飞机号分类 -->
+    <div class="page" id="pagePlane">
+        <div class="list-card">
+            <div class="list-item"><span class="name">🇺🇸 美国 (+1)</span><span class="price">¥50</span></div>
+            <div class="list-item"><span class="name">🇨🇴 哥伦比亚 (+57)</span><span class="price">¥30</span></div>
+            <div class="list-item"><span class="name">🇵🇰 巴基斯坦 (+92)</span><span class="price">¥30</span></div>
+            <div class="list-item"><span class="name">🇧🇩 孟加拉 (+880)</span><span class="price">¥35</span></div>
+            <div class="list-item"><span class="name">🇦🇷 阿根廷 (+54)</span><span class="price">¥38</span></div>
+            <div class="list-item"><span class="name">🇨🇱 智利 (+56)</span><span class="price">¥38</span></div>
+            <div class="list-item"><span class="name">🇻🇳 越南 (+84)</span><span class="price">¥38</span></div>
+            <div class="list-item"><span class="name">🇮🇱 以色列 (+972)</span><span class="price">¥38</span></div>
+            <div class="list-item"><span class="name">🇹🇿 坦桑尼亚 (+255)</span><span class="price">¥38</span></div>
+        </div>
+    </div>
+
+    <!-- 页面3：社交账号分类 -->
+    <div class="page" id="pageSocial">
+        <div class="list-card">
+            <div class="list-item"><span class="name">Google Gmail 老号</span><span class="price">¥68</span></div>
+            <div class="list-item"><span class="name">Facebook 老号 (60天)</span><span class="price">¥35</span></div>
+            <div class="list-item"><span class="name">Twitter 老号</span><span class="price">¥50</span></div>
+            <div class="list-item"><span class="name">Instagram 精品号</span><span class="price">¥88</span></div>
+            <div class="list-item"><span class="name">Discord 老号</span><span class="price">¥66</span></div>
+            <div class="list-item"><span class="name">TikTok 各国账号</span><span class="price">¥20</span></div>
+        </div>
+    </div>
+
+    <!-- 页面4：实体卡 -->
+    <div class="page" id="pageCardsim">
+        <div class="list-card">
+            <div class="list-item"><span>📞 香港卡全系列批发</span><span class="price">询价</span></div>
+        </div>
+    </div>
+
+    <!-- 页面5：查档服务 -->
+    <div class="page" id="pageCheck">
+        <div class="list-card">
+            <div class="list-item"><span class="name">🔍 个人开房记录</span><span class="price">120U</span></div>
+            <div class="list-item"><span class="name">📍 手机号查轨迹</span><span class="price">60U</span></div>
+            <div class="list-item"><span class="name">✈️ 个人出入境</span><span class="price">52U</span></div>
+            <div class="list-item"><span class="name">🚗 车辆行驶轨迹</span><span class="price">55U</span></div>
+        </div>
+    </div>
+
+    <!-- 底部售后承诺 -->
+    <div class="footer">
+        我们所售商品均为正常可用状态，售前售后全程跟进，保证交付质量，购物无忧。
+    </div>
+
+    <script>
+        // 页面跳转逻辑
+        const backBtn = document.getElementById('backBtn');
+        const pages = {
+            home: document.getElementById('pageHome'),
+            plane: document.getElementById('pagePlane'),
+            social: document.getElementById('pageSocial'),
+            cardsim: document.getElementById('pageCardsim'),
+            check: document.getElementById('pageCheck')
+        };
+
+        function openCategory(id) {
+            // 隐藏所有页面
+            Object.values(pages).forEach(p => p.classList.remove('active'));
+            // 显示对应分类页
+            const targetPage = document.getElementById('page' + id.charAt(0).toUpperCase() + id.slice(1));
+            if (targetPage) targetPage.classList.add('active');
+            // 显示返回按钮
+            backBtn.style.display = 'block';
+        }
+
+        backBtn.addEventListener('click', function() {
+            // 隐藏所有页面
+            Object.values(pages).forEach(p => p.classList.remove('active'));
+            // 显示主页
+            pages.home.classList.add('active');
+            // 隐藏返回按钮
+            backBtn.style.display = 'none';
+        });
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>易得 · 商品总览</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background: #f4f6f8;
             padding: 0 16px 80px;
             display: flex;
