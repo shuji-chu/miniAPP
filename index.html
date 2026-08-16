@@ -8,7 +8,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background: #0b0f19; /* 深邃科技感背景 */
+            background: #0b0f19;
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -21,7 +21,6 @@
             position: relative;
             padding-bottom: 20px;
         }
-        /* --- 顶部导航栏（极简） --- */
         .navbar {
             position: sticky;
             top: 0;
@@ -61,7 +60,6 @@
             cursor: pointer;
             text-decoration: none;
         }
-        /* --- 英雄区（熊猫视觉中心） --- */
         .hero {
             text-align: center;
             padding: 40px 20px 20px;
@@ -79,7 +77,6 @@
         .hero .big-title {
             font-size: 28px;
             font-weight: 800;
-            color: #fff;
             letter-spacing: 1px;
             background: linear-gradient(135deg, #fff 60%, #60a5fa);
             -webkit-background-clip: text;
@@ -91,7 +88,6 @@
             margin-top: 8px;
             line-height: 1.6;
         }
-        /* --- 核心入口（2x2 分类） --- */
         .grid-2x2 {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -112,7 +108,6 @@
         .card-btn:active { transform: scale(0.96); background: rgba(255,255,255,0.1); }
         .card-btn .icon { font-size: 28px; display: block; margin-bottom: 8px; }
         .card-btn .label { font-weight: 600; font-size: 15px; }
-        /* --- 商品列表抽屉 --- */
         .list-drawer {
             background: #ffffff;
             border-radius: 24px 24px 0 0;
@@ -121,7 +116,8 @@
             color: #1e293b;
             display: none;
             box-shadow: 0 -4px 30px rgba(0,0,0,0.2);
-            transition: opacity 0.3s;
+            max-height: 60vh; /* 限制高度，防止过长刷屏 */
+            overflow-y: auto;
         }
         .list-drawer.open { display: block; }
         .list-drawer .drawer-header {
@@ -131,6 +127,10 @@
             margin-bottom: 16px;
             border-bottom: 1px solid #e2e8f0;
             padding-bottom: 12px;
+            position: sticky;
+            top: 0;
+            background: #fff;
+            z-index: 5;
         }
         .list-drawer .drawer-header h3 { font-size: 18px; }
         .list-drawer .close-drawer {
@@ -149,7 +149,6 @@
         .list-item:last-child { border-bottom: none; }
         .list-item .name { display: flex; align-items: center; gap: 8px; font-size: 15px; }
         .list-item .price { font-weight: 600; color: #b91c1c; }
-        /* --- 底部 --- */
         .footer {
             padding: 20px;
             text-align: center;
@@ -161,8 +160,6 @@
 <body>
 
     <div class="app-wrapper">
-
-        <!-- 顶部栏 -->
         <div class="navbar">
             <div class="brand">
                 <img class="logo" src="https://sfw.bar/qisheTV/photo_2025-08-16_21-17-15.jpg" alt="logo">
@@ -174,14 +171,12 @@
             <a href="https://t.me/qishe77" class="nav-btn">售后</a>
         </div>
 
-        <!-- 英雄区：熊猫主题 -->
         <div class="hero">
             <img class="mascot" src="https://sfw.bar/qisheTV/photo_2025-08-16_21-17-15.jpg" alt="熊猫">
             <div class="big-title">生活所需 一应俱全</div>
             <div class="sub">有什么需求，交给我就好</div>
         </div>
 
-        <!-- 2x2 入口卡片 -->
         <div class="grid-2x2">
             <div class="card-btn" onclick="openDrawer('plane')">
                 <span class="icon">✈️</span>
@@ -201,7 +196,6 @@
             </div>
         </div>
 
-        <!-- 底部商品抽屉（点击卡片后弹出） -->
         <div id="drawer" class="list-drawer">
             <div class="drawer-header">
                 <h3 id="drawerTitle">商品列表</h3>
@@ -214,33 +208,70 @@
     </div>
 
     <script>
-        // 商品数据
-        const data = {
+        // 你所有商品的完整数据列表
+        const allData = {
             plane: [
-                { n: '🇺🇸 美国 (+1)', p: '¥50' },
-                { n: '🇨🇴 哥伦比亚 (+57)', p: '¥30' },
-                { n: '🇵🇰 巴基斯坦 (+92)', p: '¥30' },
-                { n: '🇧🇩 孟加拉 (+880)', p: '¥35' }
+                { n: '🇺🇸 美国 (+1)', p: '¥50' }, { n: '🇨🇴 哥伦比亚 (+57)', p: '¥30' }, { n: '🇵🇰 巴基斯坦 (+92)', p: '¥30' },
+                { n: '🇧🇩 孟加拉 (+880)', p: '¥35' }, { n: '🇺🇿 乌兹别克斯坦 (+998)', p: '¥35' },
+                { n: '🇦🇷 阿根廷 (+54)', p: '¥38' }, { n: '🇨🇱 智利 (+56)', p: '¥38' }, { n: '🇻🇳 越南 (+84)', p: '¥38' },
+                { n: '🇮🇱 以色列 (+972)', p: '¥38' }, { n: '🇹🇿 坦桑尼亚 (+255)', p: '¥38' },
+                { n: '🇪🇹 埃塞俄比亚 (+251)', p: '¥40' }, { n: '🎲 随机国', p: '¥40' }, { n: '🇵🇱 波兰 (+48)', p: '¥43' },
+                { n: '🇧🇷 巴西 (+55)', p: '¥45' }, { n: '🇰🇪 肯尼亚 (+254)', p: '¥48' }, { n: '🇲🇲 缅甸 (+95)', p: '¥50' },
+                { n: '🇳🇬 尼日利亚 (+234)', p: '¥50' }, { n: '🇨🇦 加拿大 (+1)', p: '¥55' }
             ],
             social: [
-                { n: 'Google Gmail 老号', p: '¥68' },
-                { n: 'Facebook 老号', p: '¥35' },
-                { n: 'Twitter 老号', p: '¥50' }
+                { n: 'Google Gmail 老号 (2010-2023)', p: '¥68' }, { n: 'Facebook 老号 (60天)', p: '¥35' },
+                { n: 'Twitter 推特老号 (2010-2020)', p: '¥50' }, { n: 'Instagram 精品号', p: '¥88' },
+                { n: 'Discord 老号 (2023)', p: '¥66' }, { n: 'TikTok 各国账号', p: '¥20' },
+                { n: 'TextPlus 账号', p: '¥88' }, { n: 'Tinder 火种账号', p: '¥188' },
+                { n: 'Reddit 红迪账号', p: '¥15' }, { n: 'Snapchat 账号', p: '¥15' },
+                { n: 'Steam 各国账号', p: '¥8' }, { n: '谷歌接码 (美国号码)', p: '¥15' },
+                { n: '谷歌老号辅助登录', p: '¥45' }, { n: 'Yahoo 雅虎邮箱', p: '¥40' }
             ],
             card: [
-                { n: '📞 香港卡全系列', p: '询价' },
-                { n: '🇵🇭 菲律宾卡', p: '¥27起' }
+                // 国家卡
+                { n: '🇵🇭 菲律宾卡', p: '¥27起' }, { n: '🇹🇭 泰国卡', p: '¥143起' },
+                { n: '🇭🇰 香港卡', p: '¥55起' }, { n: '🇲🇾 马来卡', p: '¥43起' },
+                { n: '🇬🇧 英国卡', p: '¥56起' }, { n: '🇮🇩 印尼卡', p: '¥53起' },
+                { n: '🇩🇪 德国卡', p: '¥238起' }, { n: '🇫🇷 法国卡', p: '¥198起' },
+                { n: '🇪🇸 西班牙卡', p: '¥118起' }, { n: '🇳🇿 新西兰卡', p: '¥138起' },
+                { n: '🇲🇽 墨西哥卡', p: '¥118起' }, { n: '🇺🇸 美国卡', p: '¥178起' },
+                // 香港卡
+                { n: '香港 鸭聊 15G 一年', p: '¥190' }, { n: '香港 鸭聊 18G 一年', p: '¥201' },
+                { n: '香港 鸭聊 30G 半年', p: '¥242' }, { n: '香港 鸭聊 20G 半年', p: '¥184 (缺货)' },
+                { n: '香港 鸭聊 33G 一年', p: '¥311 (缺货)' }, { n: '香港 鸭聊 63G 一年', p: '¥443' },
+                { n: '香港 大中华 12G 30天', p: '¥132' }, { n: '香港 大中华 18G 半年', p: '¥161' },
+                { n: '香港 大中华 25G 一年', p: '¥207' }, { n: '香港 大中华 38G 半年', p: '¥230' },
+                { n: '香港 大中华 68G 半年', p: '¥374' }, { n: '香港 和记 20G 一年', p: '¥178' },
+                { n: '香港 和记 33G 一年', p: '¥213' }, { n: '香港 数码通 16G 一年', p: '¥159' },
+                { n: '香港 CSL 15G 一年', p: '¥167' }, { n: '香港 吱游 180天', p: '¥98' },
+                { n: '香港 注册卡 90天', p: '¥86' }, { n: '香港 万众 48话费', p: '¥150' },
+                { n: '香港 万能卡', p: '¥213' }, { n: '香港 熊猫卡 一年无线', p: '¥207' }
             ],
             check: [
-                { n: '🔍 开房记录', p: '120U' },
-                { n: '📍 手机号查轨迹', p: '60U' }
+                { n: '🔍 个人开房记录', p: '120U' }, { n: '📍 手机号查轨迹', p: '60U' },
+                { n: '✈️ 个人出入境查询', p: '52U' }, { n: '✈️ 飞机动车行程', p: '60U' },
+                { n: '📍 手机号具体位置', p: '88U' }, { n: '🚗 车辆行驶轨迹', p: '55U' },
+                { n: '📄 个人婚姻记录', p: '50U' }, { n: '📞 手机通话记录', p: '78U' },
+                { n: '📦 快递收货地址', p: '55U' }, { n: '🍔 外卖收货地址', p: '55U' },
+                { n: '💬 QQ好友提取', p: '99U' }, { n: '🔑 QQ密码破解', p: '15U' },
+                { n: '🔍 QQ反查身份证', p: '30U' }, { n: '🏥 医院病例查询', p: '88U' },
+                { n: '💳 银行卡流水查询', p: '60U' }, { n: '📊 人民银行征信', p: '68U' },
+                { n: '💳 银行卡查预留号码', p: '18U' }, { n: '🏠 名下房产查询', p: '68U' },
+                { n: '📱 名下APP账号', p: '38U' }, { n: '🏢 名下公司查询', p: '40U' },
+                { n: '💰 名下资产查询', p: '88U' }, { n: '🏦 公户查询', p: '99U' },
+                { n: '🚗 名下所有车辆', p: '45U' }, { n: '📄 车辆档案查询', p: '40U' },
+                { n: '📍 车辆实时定位', p: '88U' }, { n: '📄 车辆出险记录', p: '55U' },
+                { n: '💳 支付宝流水查询', p: '66U' }, { n: '⚖️ 未知司法冻结', p: '28U' },
+                { n: '⚖️ 司法口供查询', p: '450U' }, { n: '🚨 在逃犯罪人员', p: '78U' },
+                { n: '📂 案件同案查询', p: '99U' }
             ]
         };
 
         function openDrawer(type) {
             const titles = { plane: '✈️ 飞机号', social: '📧 社交账号', card: '📞 实体卡', check: '🔍 查档服务' };
             document.getElementById('drawerTitle').textContent = titles[type] || '商品列表';
-            const list = data[type] || [];
+            const list = allData[type] || [];
             let html = '';
             list.forEach(item => {
                 html += `<div class="list-item"><span class="name">${item.n}</span><span class="price">${item.p}</span></div>`;
