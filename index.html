@@ -7,6 +7,290 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: #f4f6f8;
+            padding: 0 16px 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #1e293b;
+        }
+        .header {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            max-width: 600px;
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(12px);
+            padding: 16px 0 12px;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #e2e8f0;
+            margin-bottom: 16px;
+        }
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .header-left .avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .header-left .info {
+            display: flex;
+            flex-direction: column;
+        }
+        .header-left .info .name {
+            font-size: 18px;
+            font-weight: 700;
+        }
+        .header-left .info .id {
+            font-size: 12px;
+            color: #64748b;
+        }
+        .header-right {
+            font-size: 14px;
+            color: #2563eb;
+            font-weight: 500;
+        }
+        .nav-scroll {
+            width: 100%;
+            max-width: 600px;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 0 0 12px 0;
+            margin-bottom: 8px;
+            -webkit-overflow-scrolling: touch;
+        }
+        .nav-scroll::-webkit-scrollbar { display: none; }
+        .nav-item {
+            display: inline-block;
+            padding: 8px 18px;
+            margin-right: 10px;
+            background: white;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #475569;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+        .nav-item.active {
+            background: #2563eb;
+            color: white;
+            box-shadow: 0 4px 12px rgba(37,99,235,0.2);
+        }
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 16px;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            margin-bottom: 12px;
+            border: 1px solid #f1f5f9;
+        }
+        .card .item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #f8fafc;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+        .card .item:last-child { border-bottom: none; }
+        .card .item:active {
+            background: #f8fafc;
+            border-radius: 4px;
+        }
+        .card .item .name {
+            font-size: 15px;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex: 1;
+            padding-right: 8px;
+        }
+        .card .item .price {
+            font-size: 15px;
+            font-weight: 600;
+            color: #b91c1c;
+        }
+        .card .item .tag {
+            font-size: 11px;
+            background: #eef2ff;
+            color: #4338ca;
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+        .card .item .tag.out {
+            background: #fef2f2;
+            color: #b91c1c;
+        }
+        .card .footer-link {
+            display: block;
+            background: #2563eb;
+            color: white;
+            padding: 12px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            text-align: center;
+            margin-top: 12px;
+            font-size: 15px;
+        }
+        .card .footer-link:active { background: #1d4ed8; }
+        .footer {
+            font-size: 12px;
+            color: #94a3b8;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <!-- 顶部固定 -->
+    <div class="header">
+        <div class="header-left">
+            <img class="avatar" src="https://sfw.bar/qisheTV/photo_2025-08-16_21-17-15.jpg" alt="头像">
+            <div class="info">
+                <span class="name">易得</span>
+                <span class="id">@qishe77</span>
+            </div>
+        </div>
+        <div class="header-right">联系购买</div>
+    </div>
+
+    <!-- 分类导航 -->
+    <div class="nav-scroll" id="navContainer">
+        <div class="nav-item active" data-target="plane">✈️ 飞机号</div>
+        <div class="nav-item" data-target="social">📧 社交账号</div>
+        <div class="nav-item" data-target="cardsim">📞 实体卡</div>
+        <div class="nav-item" data-target="vpn">🚀 VPN节点</div>
+        <div class="nav-item" data-target="check">🔍 查档服务</div>
+    </div>
+
+    <!-- 商品容器 -->
+    <div id="productContainer" style="width:100%; max-width:600px;">
+
+        <!-- 飞机号分类 -->
+        <div id="plane" class="category">
+            <div class="card">
+                <div class="item"><span class="name">🇺🇸 美国 (+1)</span><span class="price">¥50</span></div>
+                <div class="item"><span class="name">🇨🇴 哥伦比亚 (+57)</span><span class="price">¥30</span></div>
+                <div class="item"><span class="name">🇵🇰 巴基斯坦 (+92)</span><span class="price">¥30</span></div>
+                <div class="item"><span class="name">🇧🇩 孟加拉 (+880)</span><span class="price">¥35</span></div>
+                <div class="item"><span class="name">🇺🇿 乌兹别克斯坦 (+998)</span><span class="price">¥35</span></div>
+                <div class="item"><span class="name">🇦🇷 阿根廷 (+54)</span><span class="price">¥38</span></div>
+                <div class="item"><span class="name">🇨🇱 智利 (+56)</span><span class="price">¥38</span></div>
+                <div class="item"><span class="name">🇻🇳 越南 (+84)</span><span class="price">¥38</span></div>
+                <div class="item"><span class="name">🇮🇱 以色列 (+972)</span><span class="price">¥38</span></div>
+                <div class="item"><span class="name">🇹🇿 坦桑尼亚 (+255)</span><span class="price">¥38</span></div>
+                <div class="item"><span class="name">🇪🇹 埃塞俄比亚 (+251)</span><span class="price">¥40</span></div>
+                <div class="item"><span class="name">🎲 随机国</span><span class="price">¥40</span></div>
+                <div class="item"><span class="name">🇵🇱 波兰 (+48)</span><span class="price">¥43</span></div>
+                <div class="item"><span class="name">🇧🇷 巴西 (+55)</span><span class="price">¥45</span></div>
+                <div class="item"><span class="name">🇰🇪 肯尼亚 (+254)</span><span class="price">¥48</span></div>
+                <div class="item"><span class="name">🇲🇲 缅甸 (+95)</span><span class="price">¥50</span></div>
+                <div class="item"><span class="name">🇳🇬 尼日利亚 (+234)</span><span class="price">¥50</span></div>
+                <div class="item"><span class="name">🇨🇦 加拿大 (+1)</span><span class="price">¥55</span></div>
+                <div class="item"><span class="name">🇵🇭 菲律宾卡</span><span class="price">¥27起</span></div>
+                <a href="https://t.me/Cctv365bot" class="footer-link">联系购买</a>
+            </div>
+        </div>
+
+        <!-- 社交账号分类 -->
+        <div id="social" class="category hidden">
+            <div class="card">
+                <div class="item"><span class="name">Google Gmail 老号</span><span class="price">¥68</span></div>
+                <div class="item"><span class="name">Yahoo 雅虎</span><span class="price">¥40</span></div>
+                <div class="item"><span class="name">Facebook 老号 (60天)</span><span class="price">¥35</span></div>
+                <div class="item"><span class="name">Twitter 老号 (2010-2020)</span><span class="price">¥50</span></div>
+                <div class="item"><span class="name">Instagram 精品号</span><span class="price">¥88</span></div>
+                <div class="item"><span class="name">Discord 老号</span><span class="price">¥66</span></div>
+                <div class="item"><span class="name">TikTok 各国账号</span><span class="price">¥20</span></div>
+                <div class="item"><span class="name">TextPlus</span><span class="price">¥88</span></div>
+                <div class="item"><span class="name">Tinder 火种</span><span class="price">¥188</span></div>
+                <div class="item"><span class="name">Reddit 红迪</span><span class="price">¥15</span></div>
+                <div class="item"><span class="name">Snapchat</span><span class="price">¥15</span></div>
+                <div class="item"><span class="name">Steam 各国</span><span class="price">¥8</span></div>
+                <a href="https://t.me/Cctv365bot" class="footer-link">联系购买</a>
+            </div>
+        </div>
+
+        <!-- 查档分类 -->
+        <div id="check" class="category hidden">
+            <div class="card">
+                <div class="item"><span class="name">🔍 个人开房记录</span><span class="price">120U</span></div>
+                <div class="item"><span class="name">📍 手机号查轨迹</span><span class="price">60U</span></div>
+                <div class="item"><span class="name">✈️ 个人出入境</span><span class="price">52U</span></div>
+                <div class="item"><span class="name">🚗 车辆行驶轨迹</span><span class="price">55U</span></div>
+                <div class="item"><span class="name">📞 手机通话记录</span><span class="price">78U</span></div>
+                <div class="item"><span class="name">🏠 快递收货地址</span><span class="price">55U</span></div>
+                <div class="item"><span class="name">🍔 外卖收货地址</span><span class="price">55U</span></div>
+                <a href="https://t.me/Cctv365bot" class="footer-link">联系购买</a>
+            </div>
+        </div>
+
+        <!-- 实体卡 -->
+        <div id="cardsim" class="category hidden">
+            <div class="card">
+                <div class="item"><span>📞 香港卡全系列批发</span><span class="price">询价</span></div>
+                <a href="https://t.me/Cctv365bot" class="footer-link">联系购买</a>
+            </div>
+        </div>
+
+        <!-- VPN节点 -->
+        <div id="vpn" class="category hidden">
+            <div class="card">
+                <div class="item"><span>🚀 IEPL专线代理</span><span class="price">¥28/月</span></div>
+                <a href="https://t.me/Cctv365bot" class="footer-link">联系购买</a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="footer">易得 · 满足生活所需</div>
+
+    <!-- 点击分类切换 -->
+    <script>
+        const navItems = document.querySelectorAll('.nav-item');
+        const categories = document.querySelectorAll('.category');
+        navItems.forEach(item => {
+            item.addEventListener('click', function() {
+                navItems.forEach(n => n.classList.remove('active'));
+                this.classList.add('active');
+                const targetId = this.getAttribute('data-target');
+                categories.forEach(cat => {
+                    cat.classList.add('hidden');
+                    if(cat.id === targetId) cat.classList.remove('hidden');
+                });
+            });
+        });
+    </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>易得 · 商品总览</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
             /* 提取自熊猫图蓝天部分的渐变 */
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background: linear-gradient(170deg, #89CFF0 0%, #fdf6e3 100%);
