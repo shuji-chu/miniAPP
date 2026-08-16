@@ -25,9 +25,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(6px);
-            -webkit-backdrop-filter: blur(6px);
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
             z-index: -1;
         }
         .app-wrapper {
@@ -43,9 +43,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(0, 0, 0, 0.25);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             z-index: 10;
         }
         .brand {
@@ -64,21 +64,8 @@
             display: flex;
             flex-direction: column;
         }
-        .brand .text .name { font-weight: 700; font-size: 18px; color: #fff; }
+        .brand .text .name { font-weight: 700; font-size: 18px; }
         .brand .text .id { font-size: 12px; color: #e2e8f0; }
-        /* 售后按钮（跳转 Safew 的 @qishe77） */
-        .nav-btn {
-            padding: 8px 16px;
-            border: 1px solid rgba(255,255,255,0.3);
-            border-radius: 20px;
-            background: rgba(255,255,255,0.1);
-            color: #fff;
-            font-size: 14px;
-            cursor: pointer;
-            text-decoration: none;
-            transition: background 0.2s;
-        }
-        .nav-btn:active { background: rgba(255,255,255,0.25); }
         .hero {
             text-align: center;
             padding: 40px 20px 20px;
@@ -90,9 +77,9 @@
             border-radius: 50%;
             object-fit: cover;
             margin: 0 auto 24px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
             display: block;
-            border: 3px solid rgba(255,255,255,0.3);
+            border: 3px solid rgba(255,255,255,0.2);
         }
         .hero .big-title {
             font-size: 28px;
@@ -115,16 +102,16 @@
             padding: 20px;
         }
         .card-btn {
-            background: rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 24px;
             padding: 24px 16px;
             text-align: center;
             cursor: pointer;
             transition: all 0.2s;
-            text-decoration: none;
             color: #fff;
             backdrop-filter: blur(4px);
+            /* 点击不用跳转 */
         }
         .card-btn:active { transform: scale(0.96); background: rgba(255,255,255,0.2); }
         .card-btn .icon { font-size: 28px; display: block; margin-bottom: 8px; }
@@ -164,19 +151,21 @@
         .list-item {
             display: flex;
             justify-content: space-between;
-            padding: 10px 0;
+            padding: 12px 0;
             border-bottom: 1px solid #f1f5f9;
         }
         .list-item:last-child { border-bottom: none; }
-        .list-item .name { display: flex; align-items: center; gap: 8px; font-size: 15px; }
+        .list-item .name { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 500; }
         .list-item .price { font-weight: 600; color: #b91c1c; }
         .footer {
             padding: 20px;
             text-align: center;
             color: #e2e8f0;
-            font-size: 12px;
+            font-size: 13px;
+            line-height: 1.8;
             text-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
+        .footer .highlight { color: #fbbf24; font-weight: 500; }
     </style>
 </head>
 <body>
@@ -192,8 +181,6 @@
                     <span class="id">@Cctv365bot</span>
                 </div>
             </div>
-            <!-- 右上角售后按钮：跳转 Safew 的 @qishe77 -->
-            <a href="https://sfw.bar/qishe77" class="nav-btn" target="_blank">售后</a>
         </div>
 
         <div class="hero">
@@ -203,29 +190,79 @@
         </div>
 
         <div class="grid-2x2">
-            <!-- 所有分类按钮统一跳转 Safew 的 @Cctv365bot -->
-            <a href="https://sfw.bar/Cctv365bot" class="card-btn">
+            <div class="card-btn" onclick="openDrawer('plane')">
                 <span class="icon">✈️</span>
                 <div class="label">飞机号</div>
-            </a>
-            <a href="https://sfw.bar/Cctv365bot" class="card-btn">
+            </div>
+            <div class="card-btn" onclick="openDrawer('social')">
                 <span class="icon">📧</span>
                 <div class="label">社交账号</div>
-            </a>
-            <a href="https://sfw.bar/Cctv365bot" class="card-btn">
+            </div>
+            <div class="card-btn" onclick="openDrawer('card')">
                 <span class="icon">📞</span>
                 <div class="label">实体卡</div>
-            </a>
-            <a href="https://sfw.bar/Cctv365bot" class="card-btn">
+            </div>
+            <div class="card-btn" onclick="openDrawer('check')">
                 <span class="icon">🔍</span>
                 <div class="label">查档服务</div>
-            </a>
+            </div>
+        </div>
+
+        <div id="drawer" class="list-drawer">
+            <div class="drawer-header">
+                <h3 id="drawerTitle">商品列表</h3>
+                <button class="close-drawer" onclick="closeDrawer()">✕</button>
+            </div>
+            <div id="drawerContent"></div>
         </div>
 
         <div class="footer">
-            售前售后全程跟进 · 联系 @qishe77
+            请返回机器人界面下单<br>
+            售后联系 <span class="highlight">@qishe77</span>
         </div>
     </div>
 
+    <script>
+        // 所有商品数据完整保留
+        const allData = {
+            plane: [
+                { n: '🇺🇸 美国 (+1)', p: '¥50' }, { n: '🇨🇴 哥伦比亚 (+57)', p: '¥30' },
+                { n: '🇵🇰 巴基斯坦 (+92)', p: '¥30' }, { n: '🇧🇩 孟加拉 (+880)', p: '¥35' },
+                { n: '🇺🇿 乌兹别克斯坦 (+998)', p: '¥35' }, { n: '🇦🇷 阿根廷 (+54)', p: '¥38' },
+                { n: '🇨🇱 智利 (+56)', p: '¥38' }, { n: '🇻🇳 越南 (+84)', p: '¥38' },
+                { n: '🇮🇱 以色列 (+972)', p: '¥38' }, { n: '🇹🇿 坦桑尼亚 (+255)', p: '¥38' }
+            ],
+            social: [
+                { n: 'Google Gmail 老号', p: '¥68' }, { n: 'Facebook 老号', p: '¥35' },
+                { n: 'Twitter 推特老号', p: '¥50' }, { n: 'Instagram 精品号', p: '¥88' },
+                { n: 'Discord 老号', p: '¥66' }, { n: 'TikTok 各国账号', p: '¥20' }
+            ],
+            card: [
+                { n: '🇵🇭 菲律宾卡', p: '¥27起' }, { n: '🇹🇭 泰国卡', p: '¥143起' },
+                { n: '🇭🇰 香港卡', p: '¥55起' }, { n: '🇲🇾 马来卡', p: '¥43起' },
+                { n: '🇬🇧 英国卡', p: '¥56起' }, { n: '🇮🇩 印尼卡', p: '¥53起' }
+            ],
+            check: [
+                { n: '🔍 个人开房记录', p: '120U' }, { n: '📍 手机号查轨迹', p: '60U' },
+                { n: '🚗 车辆行驶轨迹', p: '55U' }, { n: '📞 手机通话记录', p: '78U' }
+            ]
+        };
+
+        function openDrawer(type) {
+            const titles = { plane: '✈️ 飞机号', social: '📧 社交账号', card: '📞 实体卡', check: '🔍 查档服务' };
+            document.getElementById('drawerTitle').textContent = titles[type] || '商品列表';
+            const list = allData[type] || [];
+            let html = '';
+            list.forEach(item => {
+                html += `<div class="list-item"><span class="name">${item.n}</span><span class="price">${item.p}</span></div>`;
+            });
+            document.getElementById('drawerContent').innerHTML = html;
+            document.getElementById('drawer').classList.add('open');
+        }
+
+        function closeDrawer() {
+            document.getElementById('drawer').classList.remove('open');
+        }
+    </script>
 </body>
 </html>
